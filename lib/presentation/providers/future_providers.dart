@@ -1,4 +1,5 @@
 import 'package:example/config/helpers/pokemon_information.dart';
+import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'future_providers.g.dart';
@@ -8,7 +9,9 @@ Future<String> pokemonName(PokemonNameRef ref) async{
   final pokemonId = ref.watch(pokemonIdProvider);
   final pokemonName = await PokemonInformation.getPokemonName(pokemonId);
   ref.onDispose((){
-    print("Estamos a punto de destruir el provider");
+    if (kDebugMode) {
+      print("Estamos a punto de destruir el provider");
+    }
   });
 
   return pokemonName;
